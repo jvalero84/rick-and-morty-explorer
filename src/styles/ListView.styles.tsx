@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 
 export const ListContainer = styled(Container)`
   color: black;
@@ -43,6 +43,7 @@ export const Table = styled.table`
   //height: 800px;
   border-collapse: collapse;
   overflow: hidden;
+  margin-bottom: 20px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 `;
 
@@ -81,4 +82,10 @@ export const TbodyTd = styled(Td)`
   bottom: -9999px;
   background-color: rgba(255, 255, 255, 0.2);
   z-index: -1; */
+`;
+
+export const PagButton = styled(Button)`
+  background-color: #55608f;
+  --bs-btn-hover-bg: #b8b0d4;
+  --bs-btn-disabled-bg: #8b8799;
 `;

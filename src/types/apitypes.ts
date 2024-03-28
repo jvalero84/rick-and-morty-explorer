@@ -35,11 +35,24 @@ export type CharacterListData = {
   characters: CharactersData;
 };
 
+export type FilteredCharacterListData = {
+  charactersByIds: CharacterListResult[];
+};
+
 export type EpisodeListResult = {
   id: number;
   name: string;
   air_date: Date;
   created: Date;
+};
+
+export type TEpisodeDetailWrapper = EpisodeListResult & {
+  episode: string;
+  characters: TItemIdParam[];
+};
+
+export type TEpisodeDetail = {
+  episode: TEpisodeDetailWrapper;
 };
 
 export type EpisodesData = {
@@ -75,6 +88,14 @@ export type LocationsData = {
 
 export type LocationListData = {
   locations: LocationsData;
+};
+
+export type TLocationDetailWrapper = LocationListResult & {
+  residents: TItemIdParam[];
+};
+
+export type TLocationDetail = {
+  location: TLocationDetailWrapper;
 };
 
 type Place = {

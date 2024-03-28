@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { useTable } from "react-table";
@@ -10,6 +11,7 @@ import {
   TheadTh,
   TbodyTr,
   TbodyTd,
+  PagButton
 } from "../styles/ListView.styles";
 
 import {
@@ -82,23 +84,35 @@ export function ListComponent({
           })}
         </tbody>
       </Table>
-      <button
-        onClick={() => {
-          setPage(page - 1);
-        }}
-        className="btn"
-        disabled={page == 1}
-      >
-        Prev
-      </button>
-      <button
-        onClick={() => {
-          setPage(page + 1);
-        }}
-        className="btn"
-      >
-        Next
-      </button>
+      {page != 0 && (
+        <div
+          style={{
+            justifyContent: "right",
+            display: "flex",
+            paddingRight: "10px",
+          }}
+        >
+          <PagButton
+            onClick={() => {
+              setPage(page - 1);
+            }}
+            style={{ marginRight: "10px" }}
+            //className="btn"
+            disabled={page == 1}
+          >
+            Prev
+          </PagButton>
+          <PagButton
+            onClick={() => {
+              setPage(page + 1);
+            }}
+            //className="btn"
+          >
+            Next
+          </PagButton>
+        </div>
+      )}
     </div>
   );
 }
+

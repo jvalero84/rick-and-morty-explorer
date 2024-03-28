@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 
 import {
@@ -14,6 +15,8 @@ import {
   CharacterListResult,
   CharacterListData,
   ListQueryParams,
+  FilteredCharacterListData,
+  FilteredListQueryParams,
   ColData,
 } from "../types/apitypes";
 import { ListComponent } from "../components/ListComponent";
@@ -79,8 +82,43 @@ const GET_CHARACTERS_LIST = gql`
   }
 `;
 
+const GET_CHARACTERS_LIST_FILTERED = gql`
+  query getCharactersFiltered($ids: [ID!]!) {
+    charactersByIds(ids: $ids) {
+      id
+      name
+      status
+      species
+      type
+      gender
+      origin {
+        id
+        name
+      }
+      location {
+        id
+        name
+      }
+      image
+      episode {
+        id
+        name
+      }
+      created
+    }
+  }
+`;
+
 export function CharactersPage() {
   const [page, setPage] = useState(1);
+
+  let { state } = useLocation();
+  let charFilter = state?.charFilter;
+
+  window.history.replaceState({ charFilter }, "");
+
+  console.log("charFilter", charFilter);
+
   const [charactersList, setCharactersList] =
     useState<CharacterListData | null>(null);
 
@@ -88,6 +126,7 @@ export function CharactersPage() {
     GET_CHARACTERS_LIST,
     {
       variables: { page: page },
+      skip: charFilter != null,
       onCompleted: (characters: CharacterListData) => {
         setCharactersList(characters);
       },
@@ -95,9 +134,27 @@ export function CharactersPage() {
   );
   console.log(data);
 
+  const {
+    data: dataFiltered,
+    loading: loadingFilter,
+    error: err,
+  } = useQuery<FilteredCharacterListData, FilteredListQueryParams>(
+    GET_CHARACTERS_LIST_FILTERED,
+    {
+      variables: { ids: charFilter },
+      skip: charFilter == null,
+      onCompleted: (characters: FilteredCharacterListData) => {
+        console.log("FilteredQuery completed!!");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
   return (
     <ListContainer>
-      {loading ? (
+      {loading || loadingFilter ? (
         <TitleSection>
           <TitleLeftCol>
             <Spinner animation="border" variant="primary" />
@@ -116,9 +173,13 @@ export function CharactersPage() {
           </TitleSection>
           <ListComponent
             itemType="characters"
-            items={data!.characters.results}
+            items={
+              charFilter != null
+                ? dataFiltered!.charactersByIds
+                : data!.characters.results
+            }
             colsData={colsData}
-            page={page}
+            page={charFilter != null ? 0 : page}
             setPage={setPage}
           />
         </div>

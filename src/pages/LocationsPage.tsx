@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import Spinner from "react-bootstrap/Spinner";
+import { formatDate } from "date-fns";
 
 import {
   ListContainer,
@@ -37,7 +38,8 @@ const colsData = [
   },
   {
     Header: "Created",
-    accessor: "created",
+    accessor: (d: LocationListResult) =>
+      formatDate(d.created, "MMMM dd, yyyy p"),
   },
 ];
 

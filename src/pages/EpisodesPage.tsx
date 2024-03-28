@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
+import { format, formatDate } from "date-fns";
 import Spinner from "react-bootstrap/Spinner";
 import {
   ListContainer,
@@ -40,7 +41,8 @@ const colsData = [
   },
   {
     Header: "Created",
-    accessor: "created",
+    accessor: (d: EpisodeListResult) =>
+      formatDate(d.created, "MMMM dd, yyyy p"),
   },
 ];
 
@@ -141,7 +143,7 @@ export function EpisodesPage() {
                 : data!.episodes.results
             }
             colsData={colsData}
-            page={page}
+            page={epFilter != null ? 0 : page}
             setPage={setPage}
           />
         </div>
