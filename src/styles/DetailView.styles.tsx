@@ -31,7 +31,7 @@ export const FormCol = styled(Col)`
 `;
 
 export const PagButton = styled(Button)`
-  background-color: #55608f;
+  background-color: #15b6b8;
   --bs-btn-hover-bg: #b8b0d4;
   --bs-btn-disabled-bg: #8b8799;
 `;

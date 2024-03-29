@@ -11,7 +11,7 @@ import {
   TheadTh,
   TbodyTr,
   TbodyTd,
-  PagButton
+  PagButton,
 } from "../styles/ListView.styles";
 
 import {
@@ -90,6 +90,7 @@ export function ListComponent({
             justifyContent: "right",
             display: "flex",
             paddingRight: "10px",
+            paddingBottom: "20px",
           }}
         >
           <PagButton
@@ -115,4 +116,3 @@ export function ListComponent({
     </div>
   );
 }
-

@@ -7,7 +7,8 @@ export const ListContainer = styled(Container)`
   width: 90%;
   height: 90%;
   margin: auto;
-  padding: 0.6em 1em;
+  //padding: 0.6em 1em;
+  padding-top: 30px;
   //border: 2px solid green;
   border-radius: 3px;
 `;
@@ -44,6 +45,7 @@ export const Table = styled.table`
   border-collapse: collapse;
   overflow: hidden;
   margin-bottom: 20px;
+  margin-top: 25px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 `;
 
@@ -61,12 +63,12 @@ export const Th = styled.th`
 `;
 
 export const TheadTh = styled(Th)`
-  background-color: #55608f;
+  background-color: #15b6b8;
 `;
 
 export const TbodyTr = styled.tr`
   &:hover {
-    background-color: lightgoldenrodyellow;
+    background-color: #fcb900;
     cursor: pointer;
   }
 `;
@@ -85,7 +87,8 @@ export const TbodyTd = styled(Td)`
 `;
 
 export const PagButton = styled(Button)`
-  background-color: #55608f;
-  --bs-btn-hover-bg: #b8b0d4;
-  --bs-btn-disabled-bg: #8b8799;
+  background-color: #15b6b8;
+  --bs-btn-hover-bg: #fcb900;
+  --bs-btn-hover-color: black;
+  --bs-btn-disabled-bg: #758387;
 `;
