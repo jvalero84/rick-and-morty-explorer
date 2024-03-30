@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Spinner } from "react-bootstrap";
 
 export const Section = styled(Container)`
   width: 100%;
@@ -32,6 +32,16 @@ export const FormCol = styled(Col)`
 
 export const PagButton = styled(Button)`
   background-color: #15b6b8;
-  --bs-btn-hover-bg: #b8b0d4;
-  --bs-btn-disabled-bg: #8b8799;
+  --bs-btn-border-color: #15b6b8;
+  --bs-btn-hover-bg: #fcb900;
+  --bs-btn-hover-color: black;
+  --bs-btn-disabled-bg: #8ebfc0;
+  --bs-btn-disabled-border-color: #8ebfc0;
+  --bs-btn-hover-border-color: #fcb900;
+  --bs-btn-active-bg: #fcb900;
+  --bs-btn-active-border-color: #fcb900;
+`;
+
+export const CustomSpinner = styled(Spinner)`
+  color: #fcb900;
 `;

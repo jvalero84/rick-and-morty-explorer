@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Spinner } from "react-bootstrap";
+
+export const CustomSpinner = styled(Spinner)`
+  color: #fcb900;
+`;
 
 export const ListContainer = styled(Container)`
   color: black;
@@ -7,14 +11,11 @@ export const ListContainer = styled(Container)`
   width: 90%;
   height: 90%;
   margin: auto;
-  //padding: 0.6em 1em;
   padding-top: 30px;
-  //border: 2px solid green;
   border-radius: 3px;
 `;
 
 export const TitleSection = styled(Container)`
-  //display: table;
   &:after {
     content: "";
     display: table;
@@ -41,7 +42,6 @@ export const ListTitle = styled.p`
 
 export const Table = styled.table`
   width: 100%;
-  //height: 800px;
   border-collapse: collapse;
   overflow: hidden;
   margin-bottom: 20px;
@@ -76,19 +76,16 @@ export const TbodyTr = styled.tr`
 export const TbodyTd = styled(Td)`
   position: relative;
   color: black;
-  /* content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -9999px;
-  bottom: -9999px;
-  background-color: rgba(255, 255, 255, 0.2);
-  z-index: -1; */
 `;
 
 export const PagButton = styled(Button)`
   background-color: #15b6b8;
   --bs-btn-hover-bg: #fcb900;
   --bs-btn-hover-color: black;
-  --bs-btn-disabled-bg: #758387;
+  --bs-btn-disabled-bg: #8ebfc0;
+  --bs-btn-disabled-border-color: #8ebfc0;
+  --bs-btn-border-color: #15b6b8;
+  --bs-btn-hover-border-color: #fcb900;
+  --bs-btn-active-bg: #fcb900;
+  --bs-btn-active-border-color: #fcb900;
 `;

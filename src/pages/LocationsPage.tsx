@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
-import Spinner from "react-bootstrap/Spinner";
 import { formatDate } from "date-fns";
 
 import {
+  CustomSpinner,
   ListContainer,
   ListTitle,
   TitleSection,
@@ -15,7 +15,6 @@ import {
   LocationListResult,
   LocationListData,
   ListQueryParams,
-  ColData,
 } from "../types/apitypes";
 import { ListComponent } from "../components/ListComponent";
 
@@ -65,26 +64,26 @@ const GET_LOCATIONS_LIST = gql`
 
 export function LocationsPage() {
   const [page, setPage] = useState(1);
-  //const [charactersList, setCharactersList] =
-  //  useState<CharacterListData | null>(null);
 
   const { loading, error, data } = useQuery<LocationListData, ListQueryParams>(
     GET_LOCATIONS_LIST,
     {
       variables: { page: page },
-      //   onCompleted: (characters: CharacterListData) => {
-      //     setCharactersList(characters);
-      //   },
+      onCompleted: (locations: LocationListData) => {
+        console.log("Locations Query completed");
+        console.log(locations);
+      },
     }
   );
-  console.log(data);
 
   return (
     <ListContainer>
-      {loading ? (
+      {error ? (
+        <div>Error while retrieving data...</div>
+      ) : loading ? (
         <TitleSection>
           <TitleLeftCol>
-            <Spinner animation="border" variant="primary" />
+            <CustomSpinner animation="border" />
           </TitleLeftCol>
           <TitleRightCol>
             <ListTitle>LOCATIONS</ListTitle>
@@ -103,6 +102,7 @@ export function LocationsPage() {
             items={data!.locations.results}
             colsData={colsData}
             page={page}
+            nextPage={data!.locations.info.next}
             setPage={setPage}
           />
         </div>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
-import { format, formatDate } from "date-fns";
-import Spinner from "react-bootstrap/Spinner";
+import { formatDate } from "date-fns";
 import {
+  CustomSpinner,
   ListContainer,
   ListTitle,
   TitleSection,
@@ -16,7 +16,6 @@ import {
   EpisodeListData,
   FilteredEpisodeListData,
   ListQueryParams,
-  ColData,
   TItemIdParam,
   FilteredListQueryParams,
 } from "../types/apitypes";
@@ -84,12 +83,14 @@ export function EpisodesPage() {
 
   window.history.replaceState({ epFilter }, "");
 
-  console.log("epFilter", epFilter);
-
   const { loading, error, data } = useQuery<EpisodeListData, ListQueryParams>(
     GET_EPISODES_LIST,
     {
       variables: { page: page },
+      onCompleted: (episodes: EpisodeListData) => {
+        console.log("Episodes Query completed");
+        console.log(episodes);
+      },
       skip: epFilter != null,
     }
   );
@@ -103,8 +104,9 @@ export function EpisodesPage() {
     {
       variables: { ids: epFilter },
       skip: epFilter == null,
-      onCompleted: (characters: FilteredEpisodeListData) => {
-        console.log("FilteredQuery completed!!");
+      onCompleted: (episodes: FilteredEpisodeListData) => {
+        console.log("Episodes FilteredQuery completed");
+        console.log(episodes);
       },
       onError: (error) => {
         console.log(error);
@@ -112,15 +114,14 @@ export function EpisodesPage() {
     }
   );
 
-  console.log("data", dataFiltered);
-  //console.log("dataFiltered", dataFiltered);
-
   return (
     <ListContainer>
-      {loading || loadingFilter ? (
+      {error || err ? (
+        <div>Error while retrieving data...</div>
+      ) : loading || loadingFilter ? (
         <TitleSection>
           <TitleLeftCol>
-            <Spinner animation="border" variant="primary" />
+            <CustomSpinner animation="border" />
           </TitleLeftCol>
           <TitleRightCol>
             <ListTitle>EPISODES</ListTitle>
@@ -137,13 +138,13 @@ export function EpisodesPage() {
           <ListComponent
             itemType="episodes"
             items={
-              //dataFiltered?.episodesByIds!
               epFilter != null
                 ? dataFiltered!.episodesByIds
                 : data!.episodes.results
             }
             colsData={colsData}
             page={epFilter != null ? 0 : page}
+            nextPage={epFilter == null ? data!.episodes.info.next : null}
             setPage={setPage}
           />
         </div>

@@ -1,9 +1,9 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import { TItemIdParam, TCharacterDetail } from "../types/apitypes";
-import styled from "styled-components";
 import { Row, Form } from "react-bootstrap";
 import {
+  CustomSpinner,
   Section,
   LeftCol,
   Img,
@@ -12,7 +12,6 @@ import {
   PagButton,
 } from "../styles/DetailView.styles";
 import { formatDate } from "date-fns";
-import Spinner from "react-bootstrap/Spinner";
 
 const GET_CHARACTER = gql`
   query getCharacter($id: ID!) {
@@ -84,7 +83,7 @@ export function CharacterDetailPage() {
   return (
     <div>
       {loading ? (
-        <Spinner animation="border" variant="primary" />
+        <CustomSpinner animation="border" />
       ) : (
         <Section fluid>
           <Row

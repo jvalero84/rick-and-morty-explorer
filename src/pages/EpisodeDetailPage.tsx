@@ -1,17 +1,15 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
-import styled from "styled-components";
 import { TItemIdParam, TEpisodeDetail } from "../types/apitypes";
 import { Row, Form } from "react-bootstrap";
 import {
+  CustomSpinner,
   Section,
   LeftCol,
-  Img,
   RightCol,
   FormCol,
   PagButton,
 } from "../styles/DetailView.styles";
-import Spinner from "react-bootstrap/Spinner";
 import { formatDate } from "date-fns";
 
 const GET_EPISODE = gql`
@@ -42,7 +40,7 @@ export function EpisodeDetailPage() {
   return (
     <div>
       {loading ? (
-        <Spinner animation="border" variant="primary" />
+        <CustomSpinner animation="border" />
       ) : (
         <Section fluid>
           <Row

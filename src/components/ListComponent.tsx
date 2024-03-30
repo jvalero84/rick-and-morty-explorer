@@ -28,6 +28,7 @@ interface IPropTypes {
   items: CharacterListResult[] | EpisodeListResult[] | LocationListResult[];
   colsData: ColData[];
   page: number;
+  nextPage: number | null;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
@@ -36,6 +37,7 @@ export function ListComponent({
   items,
   colsData,
   page,
+  nextPage,
   setPage,
 }: IPropTypes) {
   const navigate = useNavigate();
@@ -43,7 +45,7 @@ export function ListComponent({
   const data = useMemo(() => items, [items]);
   const columns = useMemo(() => colsData, []);
 
-  console.log(items);
+  //console.log(items);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable<CharacterListResult | EpisodeListResult | LocationListResult>({
@@ -107,7 +109,7 @@ export function ListComponent({
             onClick={() => {
               setPage(page + 1);
             }}
-            //className="btn"
+            disabled={!nextPage}
           >
             Next
           </PagButton>

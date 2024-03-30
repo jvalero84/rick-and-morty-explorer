@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Spinner from "react-bootstrap/Spinner";
 
 import {
+  CustomSpinner,
   ListContainer,
   ListTitle,
   TitleSection,
@@ -12,12 +12,10 @@ import {
 import { gql, useQuery } from "@apollo/client";
 
 import {
-  CharacterListResult,
   CharacterListData,
   ListQueryParams,
   FilteredCharacterListData,
   FilteredListQueryParams,
-  ColData,
 } from "../types/apitypes";
 import { ListComponent } from "../components/ListComponent";
 
@@ -117,22 +115,17 @@ export function CharactersPage() {
 
   window.history.replaceState({ charFilter }, "");
 
-  console.log("charFilter", charFilter);
-
-  const [charactersList, setCharactersList] =
-    useState<CharacterListData | null>(null);
-
   const { loading, error, data } = useQuery<CharacterListData, ListQueryParams>(
     GET_CHARACTERS_LIST,
     {
       variables: { page: page },
-      skip: charFilter != null,
       onCompleted: (characters: CharacterListData) => {
-        setCharactersList(characters);
+        console.log("Characters Query completed");
+        console.log(characters);
       },
+      skip: charFilter != null,
     }
   );
-  console.log(data);
 
   const {
     data: dataFiltered,
@@ -144,7 +137,8 @@ export function CharactersPage() {
       variables: { ids: charFilter },
       skip: charFilter == null,
       onCompleted: (characters: FilteredCharacterListData) => {
-        console.log("FilteredQuery completed!!");
+        console.log("Characters FilteredQuery completed");
+        console.log(characters);
       },
       onError: (error) => {
         console.log(error);
@@ -154,10 +148,12 @@ export function CharactersPage() {
 
   return (
     <ListContainer>
-      {loading || loadingFilter ? (
+      {error || err ? (
+        <div>Error while retrieving data...</div>
+      ) : loading || loadingFilter ? (
         <TitleSection>
           <TitleLeftCol>
-            <Spinner animation="border" variant="primary" />
+            <CustomSpinner animation="border" />
           </TitleLeftCol>
           <TitleRightCol>
             <ListTitle>CHARACTERS</ListTitle>
@@ -180,6 +176,7 @@ export function CharactersPage() {
             }
             colsData={colsData}
             page={charFilter != null ? 0 : page}
+            nextPage={charFilter == null ? data!.characters.info.next : null}
             setPage={setPage}
           />
         </div>
