@@ -83,104 +83,110 @@ export function CharacterDetailPage() {
   return (
     <div>
       {loading ? (
-        <CustomSpinner animation="border" />
+        <div style={{ width: "90%", marginLeft: "12%" }}>
+          <CustomSpinner animation="border" />
+        </div>
       ) : (
-        <Section fluid>
-          <Row
-            sm={1}
-            xs={2}
-            md={2}
-            lg={2}
-            style={{ width: "90%", margin: "0 auto" }}
-          >
-            <LeftCol>
-              <Img loading="lazy" src={data!.character.image} />
-            </LeftCol>
+        <div>
+          <Section fluid>
+            <Row
+              sm={1}
+              xs={2}
+              md={2}
+              lg={2}
+              style={{ width: "90%", margin: "0 auto" }}
+            >
+              <LeftCol>
+                <Img loading="lazy" src={data!.character.image} />
+              </LeftCol>
 
-            <RightCol>
-              <h1 className="offset-lg-1 col-lg-8 mb-4">
-                {data!.character.name}
-              </h1>
+              <RightCol>
+                <h1 className="offset-lg-1 col-lg-8 mb-4">
+                  {data!.character.name}
+                </h1>
 
-              <div
-                className="offset-lg-1 col-lg-8 mb-2"
-                style={{ fontSize: "22px" }}
-              >
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Species:
-                  </Form.Label>
-                  <FormCol>{data!.character.species}</FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Type:
-                  </Form.Label>
-                  <FormCol>{data!.character.type}</FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Status:
-                  </Form.Label>
-                  <FormCol>{data!.character.status}</FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Gender:
-                  </Form.Label>
-                  <FormCol>{data!.character.gender}</FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Episodes:
-                  </Form.Label>
-                  <FormCol>
-                    {data!.character.episode && (
-                      <Link
-                        to={`/episodes`}
-                        state={{
-                          epFilter: data!.character.episode.map(
-                            (item) => item.id
-                          ),
-                        }}
-                      >
-                        <span>Explore Episodes</span>
-                      </Link>
-                    )}
-                  </FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Origin:
-                  </Form.Label>
-                  <FormCol>{data!.character.origin.name}</FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Location:
-                  </Form.Label>
-                  <FormCol>{data!.character.location.name}</FormCol>
-                </Row>
-                <Row>
-                  <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
-                    Created:
-                  </Form.Label>
-                  <FormCol>
-                    {formatDate(data!.character.created, "MMMM dd, yyyy p")}
-                  </FormCol>
-                </Row>
-              </div>
-            </RightCol>
-          </Row>
-        </Section>
+                <div
+                  className="offset-lg-1 col-lg-8 mb-2"
+                  style={{ fontSize: "22px" }}
+                >
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Species:
+                    </Form.Label>
+                    <FormCol>{data!.character.species}</FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Type:
+                    </Form.Label>
+                    <FormCol>{data!.character.type}</FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Status:
+                    </Form.Label>
+                    <FormCol>{data!.character.status}</FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Gender:
+                    </Form.Label>
+                    <FormCol>{data!.character.gender}</FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Episodes:
+                    </Form.Label>
+                    <FormCol>
+                      {data!.character.episode && (
+                        <Link
+                          to={`/episodes`}
+                          state={{
+                            epFilter: data!.character.episode.map(
+                              (item) => item.id
+                            ),
+                          }}
+                        >
+                          <span>Explore Episodes</span>
+                        </Link>
+                      )}
+                    </FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Origin:
+                    </Form.Label>
+                    <FormCol>{data!.character.origin.name}</FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Location:
+                    </Form.Label>
+                    <FormCol>{data!.character.location.name}</FormCol>
+                  </Row>
+                  <Row>
+                    <Form.Label style={{ fontWeight: "bold", width: "20%" }}>
+                      Created:
+                    </Form.Label>
+                    <FormCol>
+                      {formatDate(data!.character.created, "MMMM dd, yyyy p")}
+                    </FormCol>
+                  </Row>
+                </div>
+              </RightCol>
+            </Row>
+          </Section>
+          <Section fluid>
+            <Row xs={1} style={{ width: "90%", marginLeft: "12%" }}>
+              <RightCol>
+                <PagButton onClick={() => navigate("/characters")}>
+                  Back
+                </PagButton>
+              </RightCol>
+            </Row>
+          </Section>
+        </div>
       )}
-      <Section style={{ justifyContent: "flex-start" }}>
-        <Row xs={1}>
-          <LeftCol>
-            <PagButton onClick={() => navigate("/characters")}>Back</PagButton>
-          </LeftCol>
-        </Row>
-      </Section>
     </div>
   );
 }

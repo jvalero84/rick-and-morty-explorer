@@ -38,7 +38,9 @@ export function LocationDetailPage() {
   return (
     <div>
       {loading ? (
-        <CustomSpinner animation="border" />
+        <div style={{ width: "90%", marginLeft: "12%" }}>
+          <CustomSpinner animation="border" />
+        </div>
       ) : (
         <div>
           <Section fluid>

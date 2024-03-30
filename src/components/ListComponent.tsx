@@ -100,7 +100,6 @@ export function ListComponent({
               setPage(page - 1);
             }}
             style={{ marginRight: "10px" }}
-            //className="btn"
             disabled={page == 1}
           >
             Prev

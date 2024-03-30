@@ -24,7 +24,6 @@ export const App = () => {
           <Route path="/locations/:id" element={<LocationDetailPage />} />
           <Route path="*" element={<Navigate to="/characters" replace />} />
         </Routes>
-        {/* <Boilerplate /> */}
       </BrowserRouter>
     </div>
   );
